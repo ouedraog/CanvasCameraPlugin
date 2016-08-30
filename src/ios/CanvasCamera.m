@@ -311,15 +311,15 @@ typedef enum {
                 
                 // success callback
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
-                resultJS = [pluginResult toSuccessCallbackString:command.callbackId];
-                [self writeJavascript:resultJS];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             }
             else
             {
                 // success callback
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
-                resultJS = [pluginResult toSuccessCallbackString:command.callbackId];
-                [self writeJavascript:resultJS];
+                //[pluginResult toSuccessCallbackString:command.callbackId];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+                //[self writeJavascript:resultJS];
             }
             
             
@@ -328,9 +328,9 @@ typedef enum {
         {
             errMsg = @"Capture stopped";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errMsg];
-            resultJS = [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             //resultJS = [pluginResult toErrorCallbackString:command.callbackId];
-            [self writeJavascript:resultJS];
+            //[self writeJavascript:resultJS];
         }
         
         
@@ -338,8 +338,7 @@ typedef enum {
     else
     {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errMsg];
-        resultJS = [pluginResult toErrorCallbackString:command.callbackId];
-        [self writeJavascript:resultJS];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
 }
 
