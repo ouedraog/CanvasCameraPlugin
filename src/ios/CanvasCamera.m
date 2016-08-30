@@ -328,7 +328,8 @@ typedef enum {
         {
             errMsg = @"Capture stopped";
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errMsg];
-            resultJS = [pluginResult toErrorCallbackString:command.callbackId];
+            resultJS = [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+            //resultJS = [pluginResult toErrorCallbackString:command.callbackId];
             [self writeJavascript:resultJS];
         }
         
